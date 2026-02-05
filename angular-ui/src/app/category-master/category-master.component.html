@@ -1,0 +1,57 @@
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Category Master</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Category Name</label>
+                <input type="text" class="form-control" [(ngModel)]="categoryName" placeholder="Enter category name" />
+            </div>
+
+            <div class="col-md-4 d-flex gap-2">
+                <button class="btn btn-success w-100" (click)="saveCategory()">
+          {{ editId ? "Update" : "Add" }}
+        </button>
+
+                <button class="btn btn-secondary w-100" *ngIf="editId" (click)="resetForm()">
+          Cancel
+        </button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 120px;">ID</th>
+                        <th>Name</th>
+                        <th style="width: 200px;">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let c of categories">
+                        <td>{{ c.CategoryId }}</td>
+                        <td>{{ c.CategoryName }}</td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-warning btn-sm" (click)="editCategory(c)">Edit</button>
+                                <button class="btn btn-danger btn-sm" (click)="deleteCategory(c.CategoryId)">
+                  Delete
+                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="categories.length === 0">
+                        <td colspan="3" class="text-center text-muted py-4">No categories found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
