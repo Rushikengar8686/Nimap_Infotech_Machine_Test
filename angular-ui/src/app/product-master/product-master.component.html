@@ -1,0 +1,91 @@
+<div class="card shadow-sm">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Product Master</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-5">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input type="text" class="form-control" [(ngModel)]="productName" placeholder="Enter product name" />
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Category</label>
+                <select class="form-select" [(ngModel)]="categoryId">
+          <option [value]="0">-- Select Category --</option>
+          <option *ngFor="let c of categories" [value]="c.CategoryId">
+            {{ c.CategoryName }}
+          </option>
+        </select>
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end gap-2">
+                <button class="btn btn-primary w-100" (click)="saveProduct()">
+          {{ editId ? "Update" : "Add" }}
+        </button>
+
+                <button class="btn btn-secondary w-100" *ngIf="editId" (click)="resetForm()">
+          Cancel
+        </button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 120px;">ProductId</th>
+                        <th>ProductName</th>
+                        <th style="width: 120px;">CategoryId</th>
+                        <th>CategoryName</th>
+                        <th style="width: 200px;">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let p of products">
+                        <td>{{ p.ProductId }}</td>
+                        <td>{{ p.ProductName }}</td>
+                        <td>{{ p.CategoryId }}</td>
+                        <td>
+                            <span class="badge bg-info text-dark">{{ p.CategoryName }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-warning btn-sm" (click)="editProduct(p)">Edit</button>
+                                <button class="btn btn-danger btn-sm" (click)="deleteProduct(p.ProductId)">
+                  Delete
+                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="products.length === 0">
+                        <td colspan="5" class="text-center text-muted py-4">No products found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="text-muted small">
+                Page <b>{{ page }}</b> of <b>{{ totalPages }}</b>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-outline-primary" (click)="prevPage()" [disabled]="page === 1">
+          Prev
+        </button>
+
+                <button class="btn btn-outline-secondary disabled">{{ page }}</button>
+
+                <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="page === totalPages">
+          Next
+        </button>
+            </div>
+        </div>
+    </div>
+</div>
